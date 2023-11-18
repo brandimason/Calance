@@ -9,3 +9,7 @@ Create a script that uses the GitHub API to pull information from the Bootstrap 
     - URL for the distribution zip file
 
 # Instructions:
+- Install requests library from python 'pip install requests'
+
+# References:
+[Requests](https://pypi.org/project/requests/) <br>
