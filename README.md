@@ -9,7 +9,7 @@ Create a script that uses the GitHub API to pull information from the Bootstrap 
     - Tag Name
     - URL for the distribution zip file
 
-# Installation & Use
+# Installation & Use:
 - Install requests library from python 'pip install requests'
 
 1. Fork and clone this repo from Github to your local environment
