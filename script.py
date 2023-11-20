@@ -1,39 +1,45 @@
 import requests
 import csv
 
-def fetch_releases(url):
-    response = requests.get(url)
+'''
+Function that takes a url as a parameter and the default is set to the GitHub API endpoint for Bootstrap releases.
+'''
+def fetch_releases(url='https://api.github.com/repos/twbs/bootstrap/releases'):
+    try:
+        response = requests.get(url)
+    except Exception as e:
+        print(e)
+        return {}
 
+    # If the request is successful, parse the JSON data
     if response.status_code == 200:
         releases = response.json()
 
         if releases:
-            csv_file = 'bs_releases.csv'
+            return releases
 
-            create_csv_file(csv_file, releases)
-
-            print(f"Data has been writen to {csv_file}")
         else:
             print("No releases found.")
     else:
         print(f"Error: {response.status_code}")
+    
+    return {}
 
-def create_csv_file(csv_file, releases):
+'''
+Function to create a csv file that takes a list of releases and a CSV file name the parameters. 
+'''
+def create_csv_file(releases, csv_file='bs_releases.csv'):
         with open(csv_file, 'w', newline='') as file:
             csv_writer = csv.writer(file)
             csv_writer.writerow(['Created Date', 'Tag Name', 'URL'])
-
+            
+            # Write each release to CSV file
             for release in releases:
-                created_date = release['created_at']
-                tag_name = release['tag_name']
-                url = release['url']
+                csv_writer.writerow([release['created_at'], release['tag_name'], release['url']])
 
-                csv_writer.writerow([created_date, tag_name, url])
-
-def main():
-    url = 'https://api.github.com/repos/twbs/bootstrap/releases'
-
-    fetch_releases(url)
+        print(f"Data has been writen to {csv_file}")
 
 if __name__ == "__main__":
-    main()
+    releases = fetch_releases()
+    if len(releases) > 0:
+        create_csv_file(releases)
