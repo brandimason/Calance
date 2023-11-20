@@ -26,7 +26,7 @@ def fetch_releases(url='https://api.github.com/repos/twbs/bootstrap/releases'):
     return {}
 
 '''
-Function to create a csv file that takes a list of releases and a CSV file name the parameters. 
+Function to create a csv file that takes a list of releases and a CSV file name as parameters. 
 '''
 def create_csv_file(releases, csv_file='bs_releases.csv'):
         with open(csv_file, 'w', newline='') as file:

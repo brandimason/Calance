@@ -1,15 +1,21 @@
 # calance
 
+# Instructions:
 Create a script that uses the GitHub API to pull information from the Bootstrap repo and write a file.
 
 1. Use the GitHub API to retrieve a list of releases
 2. Write the list of releases to a CSV file that includes:
-    - created date
-    - tag name
+    - Created Date
+    - Tag Name
     - URL for the distribution zip file
 
-# Instructions:
+# Installation & Use
 - Install requests library from python 'pip install requests'
+
+1. Fork and clone this repo from Github to your local environment
+2. Navigate into your local directory and open the contents in your preferred code editor
+3. Run `pipenv install` to install dependencies 
+4. From the project directory, run `python script.py` to execute the script and create the CSV file.
 
 # References:
 [Bootstrap Repo](https://github.com/twbs/bootstrap) <br>
