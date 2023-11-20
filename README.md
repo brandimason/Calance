@@ -1,5 +1,3 @@
-# calance
-
 # Instructions:
 Create a script that uses the GitHub API to pull information from the Bootstrap repo and write a file.
 
