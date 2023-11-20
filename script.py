@@ -1,46 +1,39 @@
 import requests
 import csv
 
-url = 'https://api.github.com/repos/twbs/bootstrap/releases'
+def fetch_releases(url):
+    response = requests.get(url)
 
-response = requests.get(url)
+    if response.status_code == 200:
+        releases = response.json()
 
-# if response.status_code == 200:
-#     releases = response.json()
+        if releases:
+            csv_file = 'bs_releases.csv'
 
-#     if releases:  # Check if the list is not empty
-#         csv_file = 'bs_releases.csv'
+            create_csv_file(csv_file, releases)
 
-#         with open(csv_file, 'w', newline='') as file:
-#             csv_writer = csv.writer(file)
-#             csv_writer.writerow(['Created Date', 'Tag Name', 'URL'])
+            print(f"Data has been writen to {csv_file}")
+        else:
+            print("No releases found.")
+    else:
+        print(f"Error: {response.status_code}")
 
-#             for release in releases:
-#                 created_date = release['created_at']
-#                 tag_name = release['tag_name']
-#                 url = release['url']
+def create_csv_file(csv_file, releases):
+        with open(csv_file, 'w', newline='') as file:
+            csv_writer = csv.writer(file)
+            csv_writer.writerow(['Created Date', 'Tag Name', 'URL'])
 
-#                 csv_writer.writerow([created_date, tag_name, url])
-#             print(f"Data has been writen to {csv_file}")
+            for release in releases:
+                created_date = release['created_at']
+                tag_name = release['tag_name']
+                url = release['url']
 
-#     else:
-#         print("No releases found.")
-# else:
-#     print(f"Error: {response.status_code}")
+                csv_writer.writerow([created_date, tag_name, url])
 
+def main():
+    url = 'https://api.github.com/repos/twbs/bootstrap/releases'
 
-releases = response.json()
+    fetch_releases(url)
 
-csv_file = 'bs_releases.csv'
-
-with open(csv_file, 'w', newline='') as file:
-    csv_writer = csv.writer(file)
-    csv_writer.writerow(['Created Date', 'Tag Name', 'URL'])
-
-    for release in releases:
-        created_date = release['created_at']
-        tag_name = release['tag_name']
-        url = release['url']
-
-        csv_writer.writerow([created_date, tag_name, url])
-    print(f"Data has been writen to {csv_file}")
+if __name__ == "__main__":
+    main()
